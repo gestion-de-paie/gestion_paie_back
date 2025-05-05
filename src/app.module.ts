@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { FonctionModule } from './fonction/fonction.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { type } from 'os';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { FonctionsModule } from './fonctions/fonctions.module';
 
 @Module({
   imports: [
@@ -26,8 +26,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
        }),
        inject: [ConfigService],
-    })
-    ,FonctionModule],
+    }),
+    FonctionsModule],
   controllers: [AppController],
   providers: [AppService],
 })
