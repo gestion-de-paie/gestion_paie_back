@@ -1,5 +1,6 @@
+import { Employe } from "src/employes/entities/employe.entity";
 import { TypeContrat } from "src/enums/typeContrat.enum";
-import { Column, Entity, Index, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Column, Entity, Index, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity()
 @Unique(['nom_fonction'])
@@ -16,5 +17,8 @@ export class Fonction {
 
     @Column({ nullable: false , type: 'enum' , enum: TypeContrat , default: TypeContrat.CDI})
     type_contrat: TypeContrat;
+
+    @OneToMany(()=>Employe , (employe)=>employe.fonction)
+    employes: Employe[]; 
 }
 

@@ -4,12 +4,15 @@ import { UpdateFonctionDto } from './dto/update-fonction.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Fonction } from './entities/fonction.entity';
 import { Not, Repository } from 'typeorm';
+import { Employe } from 'src/employes/entities/employe.entity';
 
 @Injectable()
 export class FonctionsService {
   constructor(
     @InjectRepository(Fonction)
-    private readonly fonctionRepository: Repository<Fonction>
+    private readonly fonctionRepository: Repository<Fonction>,
+    @InjectRepository(Employe)
+    private readonly employeRepository: Repository<Employe>
   ){}
   async create(createFonctionDto: CreateFonctionDto): Promise<Fonction> {
     const { nom_fonction } = createFonctionDto;
@@ -56,7 +59,7 @@ export class FonctionsService {
     return await this.fonctionRepository.save(nouvelleValeur);
   }
 
-  async remove(id: number): Promise<Fonction> {
+  async remove(id: number) {
     const fonctionExistante = await this.fonctionRepository.findOneBy({id});
     if (!fonctionExistante) {
       throw new NotFoundException('Fonction non trouvée');

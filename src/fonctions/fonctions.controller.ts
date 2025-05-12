@@ -43,13 +43,23 @@ export class FonctionsController {
   @ApiResponse({status: 200 , description: "Mis à jours de la fonction avec succès"})
   @ApiBody({ type: UpdateFonctionDto })
   update(@Param('id') id: string, @Body() updateFonctionDto: UpdateFonctionDto) {
-    return this.fonctionsService.update(+id, updateFonctionDto);
+    try {
+      const employeMofifier =  this.fonctionsService.update(+id, updateFonctionDto);
+      return new ResponseApi('succès','Fonction modifié avec succès')
+    } catch (error) {
+      return new ResponseApi('erreur','Erreur lors de la modification de la fonction : ' + error.message);
+    }
   }
 
   @Delete(':id')
   @ApiResponse({ status: 404 , description: 'Fonction non trouvée'})
   @ApiResponse({status: 200 , description: "Suppresion de fonction avec succès"})
   remove(@Param('id') id: string) {
-    return this.fonctionsService.remove(+id);
+    try {
+      const employeSupprimer =  this.fonctionsService.remove(+id);
+      return new ResponseApi('succès','Fonction supprmé avec succès')
+    } catch (error) {
+      return new ResponseApi('erreur','Erreur lors de la suppression de la fonction : ' + error.message);
+    }
   }
 }
