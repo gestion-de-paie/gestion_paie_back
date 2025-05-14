@@ -6,6 +6,7 @@ import { type } from 'os';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FonctionsModule } from './fonctions/fonctions.module';
 import { EmployesModule } from './employes/employes.module';
+import { ModePaiementsModule } from './mode_paiements/mode_paiements.module';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { EmployesModule } from './employes/employes.module';
        inject: [ConfigService],
     }),
     FonctionsModule,
-    EmployesModule],
+    EmployesModule,
+    ModePaiementsModule],
   controllers: [AppController],
   providers: [AppService],
 })

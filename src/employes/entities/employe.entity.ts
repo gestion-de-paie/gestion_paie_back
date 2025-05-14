@@ -3,7 +3,8 @@ import { CasEmploye } from "src/enums/casEmploye.enum";
 import { SexEmploye } from "src/enums/sexEmploye.enum";
 import { SituationEmploye } from "src/enums/situationEmploye.enum";
 import { Fonction } from "src/fonctions/entities/fonction.entity";
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
+import { PaiementEmploye } from "src/paiementEmpoye/enitities/paiementEmploye.entity";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class Employe {
@@ -60,5 +61,8 @@ export class Employe {
         onDelete: 'SET NULL'
     })
     fonction: Fonction;
+
+    @OneToMany(()=> PaiementEmploye , (paiementEmploye)=>paiementEmploye.modePaiement)
+    paiementEmployes: PaiementEmploye[];
 
 }
