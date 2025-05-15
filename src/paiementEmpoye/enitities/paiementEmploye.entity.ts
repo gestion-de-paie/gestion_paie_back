@@ -16,10 +16,30 @@ export class PaiementEmploye{
     @Column({default: true})
     actif: boolean;
 
+    @Column({nullable: true})
+    numero_mobile_money: string;
+
+    @Column({nullable: true})
+    reseau_mobile: string;
+
+    @Column({nullable: true})
+    iban: string;
+    
+    @Column({nullable: true})
+    banque: string;
+
+    @Column({nullable: true})
+    num_compte: string;
+
+    @Column({nullable: true})
+    lieu_retrait: string;
+
+
     @Column({
-        type: 'json',
-        nullable: true
+        nullable: true,
+        type: 'date'
     })
-    details: Record<string, any>
+    date_expire: Date
+
 
 }

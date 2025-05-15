@@ -3,7 +3,7 @@ import { CreateEmployeDto } from './dto/create-employe.dto';
 import { UpdateEmployeDto } from './dto/update-employe.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Employe } from './entities/employe.entity';
-import { Repository } from 'typeorm';
+import { Equal, Repository } from 'typeorm';
 import { Fonction } from 'src/fonctions/entities/fonction.entity';
 
 @Injectable()
@@ -51,7 +51,6 @@ export class EmployesService {
       throw new NotFoundException('Fonction non trouvée');
     }
     const matricule = await this.generateMatricule();
-    console.log(matricule);
     const employe = this.employeRepository.create({
       matricule,
       nom: createEmployeDto.nom,
@@ -73,13 +72,13 @@ export class EmployesService {
   }
 
   async findAll(): Promise<Employe[]> {
-    return await this.employeRepository.find({relations: ['fonction']});
+    return await this.employeRepository.find({relations: ['fonction','paiementEmployes','paiementEmployes.modePaiement']});
   }
 
   async findOne(matricule: string): Promise<Employe> {
     const employe = await this.employeRepository.findOne({
-      where : {matricule},
-      relations : ['fonction']
+      relations : ['fonction','paiementEmployes','paiementEmployes.modePaiement'],
+      where: {matricule,paiementEmployes: { actif: Equal(true)}}
     });
     
     if(!employe){

@@ -62,7 +62,7 @@ export class Employe {
     })
     fonction: Fonction;
 
-    @OneToMany(()=> PaiementEmploye , (paiementEmploye)=>paiementEmploye.modePaiement)
+    @OneToMany(()=> PaiementEmploye , (paiementEmploye)=>paiementEmploye.employe)
     paiementEmployes: PaiementEmploye[];
 
 }
