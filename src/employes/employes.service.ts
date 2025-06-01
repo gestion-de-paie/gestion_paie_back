@@ -60,7 +60,6 @@ export class EmployesService {
       email: createEmployeDto.email,
       sex_employe: createEmployeDto.sex_employe,
       situation_employe: createEmployeDto.situation_employe,
-      date_embauche: new Date(createEmployeDto.date_embauche),
       date_naissance: new Date(createEmployeDto.date_naissance),
       fonction
 
@@ -72,7 +71,7 @@ export class EmployesService {
   }
 
   async findAll(): Promise<Employe[]> {
-    return await this.employeRepository.find({relations: ['fonction','paiementEmployes','paiementEmployes.modePaiement']});
+    return await this.employeRepository.createQueryBuilder('employe').leftJoinAndSelect('employe.fonction','fonction').leftJoinAndSelect('employe.paiementEmployes','paiementEmployes').leftJoinAndSelect('paiementEmployes.modePaiement','modePaiement').getMany();
   }
 
   async findOne(matricule: string): Promise<Employe> {

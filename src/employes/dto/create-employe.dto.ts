@@ -40,14 +40,6 @@ export class CreateEmployeDto {
     })
     email: string;
 
-    @IsNotEmpty({message: 'La date embauche est requis'})
-    @IsString()
-    @ApiProperty({
-        type: String,
-        description: 'Date d\'embauche (YYYY-MM-DD)'
-    })
-    date_embauche: Date
-
     @IsNotEmpty({message: 'La date de naissance de l\'employée est requis'})
     @IsString()
     @ApiProperty({
